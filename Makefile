@@ -2,11 +2,8 @@ CC="gcc"
 DD="lldb"
 FLAGS="-g"
 
-test: test.c prepare
-	$(CC) heap.c -o x/test
-
-dtest: test.c prepare
-	$(CC) heap.c -g x/test
+test: prepare
+	$(CC) test.c -c -o x/test.a
 
 runner: prepare
 	[ ! -f main.c ] || ($(CC) main.c test.c -o x/test && x/test && rm x/test)
