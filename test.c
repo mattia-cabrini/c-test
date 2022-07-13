@@ -9,10 +9,16 @@ typedef struct node_t {
   struct node_t *next;
 } *node;
 
+typedef struct {
+  test_f f;
+  const char *module;
+} tester;
+
 node head = NULL;
 node tail = NULL;
 
-test_f *fs = NULL;
+tester *ts;
+
 int TESTS = 0;
 
 static node create_node(test_r T, node next) {
@@ -24,28 +30,30 @@ static node create_node(test_r T, node next) {
   return n;
 }
 
-test_r test_r_init(int success, char *name, char *message) {
+test_r test_r_init(int success, int sequential, const char *module, char *message) {
   test_r T;
 
   T.success = success;
+  T.sequential = sequential;
+  T.module = module;
   T.message = message;
-  T.name = name;
 
   return T;
 }
 
-void test_add(test_f f) {
-  test_f *fs2 = (test_f *) malloc ( (TESTS + 1) * sizeof(test_f) );
+void test_add(test_f f, const char *module) {
+  tester *ts2 = (tester *) malloc ( (TESTS + 1) * sizeof(tester) );
 
   if ( TESTS > 0 ) {
-    memcpy(fs2, fs, (TESTS) * sizeof( test_f ));
-    free(fs);
+    memcpy(ts2, ts, (TESTS) * sizeof( test_f ));
+    free(ts);
   }
 
-  fs2[TESTS] = f;
+  ts2[TESTS].f = f;
+  ts2[TESTS].module = module;
 
   ++TESTS;
-  fs = fs2;
+  ts = ts2;
 }
 
 static void add_result(test_r T) {
@@ -61,8 +69,8 @@ void test_run() {
   int i;
 
   for ( i = 0; i < TESTS; ++i ) {
-    test_r T = test_r_init(0, NULL, NULL);
-    fs[i](&T);
+    test_r T = test_r_init(0, -1, ts[i].module, NULL);
+    ts[i].f(&T);
     add_result(T);
   }
 }
@@ -90,7 +98,6 @@ static void free_not_void(void *ptr) {
 
 void test_r_free(test_r T) {
   free_not_void(T.message);
-  free_not_void(T.name);
 }
 
 void test_unload() {
