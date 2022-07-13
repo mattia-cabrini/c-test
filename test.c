@@ -24,14 +24,12 @@ static node create_node(test_r T, node next) {
   return n;
 }
 
-test_r test_r_init(int success, const char *str) {
-  int len = strlen(str);
+test_r test_r_init(int success, char *name, char *message) {
   test_r T;
 
   T.success = success;
-
-  T.error = (char *) malloc( (len + 1) * sizeof(char) );
-  strcpy(T.error, str);
+  T.message = message;
+  T.name = name;
 
   return T;
 }
@@ -86,9 +84,13 @@ int test_pop(test_r *T) {
   return 0;
 }
 
+static void free_not_void(void *ptr) {
+  if ( ptr != NULL ) free(ptr);
+}
+
 void test_r_free(test_r T) {
-  if ( T.error != NULL )
-    free(T.error);
+  free_not_void(T.message);
+  free_not_void(T.name);
 }
 
 void test_unload() {
