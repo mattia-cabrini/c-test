@@ -45,7 +45,7 @@ void test_add(test_f f, const char *module) {
   tester *ts2 = (tester *) malloc ( (TESTS + 1) * sizeof(tester) );
 
   if ( TESTS > 0 ) {
-    memcpy(ts2, ts, (TESTS) * sizeof( test_f ));
+    memcpy(ts2, ts, (TESTS) * sizeof( tester ));
     free(ts);
   }
 
