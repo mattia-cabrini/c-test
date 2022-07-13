@@ -106,6 +106,6 @@ void test_unload() {
   while ( test_pop(&T) != -1 )
     test_r_free(T);
 
-  free(fs);
+  free(ts);
   TESTS = 0;
 }
