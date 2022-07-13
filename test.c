@@ -61,7 +61,7 @@ void test_run() {
   int i;
 
   for ( i = 0; i < TESTS; ++i ) {
-    test_r T;
+    test_r T = test_r_init(0, NULL, NULL);
     fs[i](&T);
     add_result(T);
   }
