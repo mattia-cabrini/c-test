@@ -11,6 +11,7 @@ typedef struct node_t {
 
 typedef struct {
   test_f f;
+  int sequential;
   const char *module;
 } tester;
 
@@ -41,7 +42,7 @@ test_r test_r_init(int success, int sequential, const char *module, char *messag
   return T;
 }
 
-void test_add(test_f f, const char *module) {
+void test_add(test_f f, int sequential, const char *module) {
   tester *ts2 = (tester *) malloc ( (TESTS + 1) * sizeof(tester) );
 
   if ( TESTS > 0 ) {
@@ -51,6 +52,7 @@ void test_add(test_f f, const char *module) {
 
   ts2[TESTS].f = f;
   ts2[TESTS].module = module;
+  ts2[TESTS].sequential = sequential;
 
   ++TESTS;
   ts = ts2;
