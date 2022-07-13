@@ -71,7 +71,7 @@ void test_run() {
   int i;
 
   for ( i = 0; i < TESTS; ++i ) {
-    test_r T = test_r_init(0, -1, ts[i].module, NULL);
+    test_r T = test_r_init(0, ts[i].sequential, ts[i].module, NULL);
     ts[i].f(&T);
     add_result(T);
   }
