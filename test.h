@@ -17,4 +17,4 @@ extern int    test_pop(test_r*);
 extern void   test_r_free(test_r);
 extern void   test_unload();
 
-#endif // TEST_H_INCLUDED
+#endif /* TEST_H_INCLUDED */

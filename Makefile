@@ -1,7 +1,7 @@
-CC="gcc"
-DD="lldb"
-FLAGS="-g"
-LL="ar"
+CC=gcc
+DD=lldb
+FLAGS=-Wall -pedantic -std=c89
+LL=ar
 
 test: prepare
 	@echo "Compiling test.c..."
