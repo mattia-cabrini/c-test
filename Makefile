@@ -1,11 +1,11 @@
 CC=gcc
 DD=lldb
-FLAGS=-Wall -pedantic -std=c89
+FLAGS=-Wall -pedantic -std=c89 -g
 LL=ar
 
 test: prepare
 	@echo "Compiling test.c..."
-	@$(CC) test.c -c -o x/test.o
+	@$(CC) $(FLAGS) test.c -c -o x/test.o
 
 	@echo "Linking object..."
 	@$(LL) rc x/test.a x/test.o
